@@ -45,10 +45,11 @@ namespace Word2Html
             HtmlDocument document = new HtmlDocument();
             document.Load(string.Format(@"{0}\\{1}\\{2}", saveDoc,tempFolder, htmlFileName),Encoding.UTF8);
 
-            var docNode= document.DocumentNode.SelectNodes("/html/body/div/p");
+            var docBody = document.DocumentNode.SelectSingleNode("/html/body");
+            var pNodes = docBody.SelectNodes("div/p");
 
 
-            foreach (var dc in docNode)
+            foreach (var dc in pNodes)
             {
                 Response.Write(dc.InnerText);
                 var imgNodes = dc.SelectNodes("img");
@@ -57,18 +58,26 @@ namespace Word2Html
                     foreach (var im in imgNodes)
                     {
                         var imgUrl = im.Attributes["src"];
+                        
                         string imgPath = string.Format("{0}\\{1}\\{2}", saveDoc, tempFolder, imgUrl.Value);
-                        Response.Write("<br/>");
-                        string base64 = ImageHelper.ImageToBase64(imgPath);
-                        Response.Write(base64);
-                        Response.Write("<br/>");
-                        Response.Write("<img src='data:image/png;base64," + base64 + "'/>");
+                        //Response.Write("<br/>");
+                        string base64String = ImageHelper.ImageToBase64(imgPath);
+                        im.SetAttributeValue("src", "data:image/png;base64,"+base64String);
+                        //Response.Write(base64String);
+                        //Response.Write("<br/>");
+                        //Response.Write("<img src='data:image/png;base64," + base64String + "'/>");
+
+                        
+
 
                     }
                 }
-                Response.Write("<br/>");
-            }
 
+                
+
+                //Response.Write("<br/>");
+            }
+            string examHtml = docBody.InnerHtml;
             
         }
     }
