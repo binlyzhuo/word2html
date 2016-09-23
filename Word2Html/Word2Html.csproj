@@ -64,9 +64,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="2.png" />
     <Content Include="Global.asax" />
     <Content Include="HtmlPage.aspx" />
     <Content Include="Index.aspx" />
+    <None Include="Properties\PublishProfiles\word2html.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
@@ -87,6 +89,7 @@
     <Compile Include="HtmlPage.aspx.designer.cs">
       <DependentUpon>HtmlPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ImageHelper.cs" />
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
